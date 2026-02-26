@@ -74,6 +74,8 @@ export const fortuneService = {
     api.post('/fortune/tarot', data),
   createHoroscopeReading: (data: { zodiacSign?: string; period?: string; userNote?: string }) =>
     api.post('/fortune/horoscope', data),
+  createDreamReading: (data: { dreamText: string }) =>
+    api.post('/fortune/dream', data),
   getReading: (id: string) => api.get(`/fortune/${id}`),
   rateReading: (id: string, data: { rating: number; feedback?: string }) =>
     api.post(`/fortune/${id}/rate`, data),

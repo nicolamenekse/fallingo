@@ -120,13 +120,47 @@ Aşağıdaki JSON formatında yanıt ver:
   "fullReading": "Tüm yorumun akıcı hali (300+ kelime)"
 }`;
 
+const DREAM_PROMPT = (dreamText) => `
+Sen deneyimli bir rüya yorumcususun. Türk kültürü ve evrensel sembolizm konusunda derinlemesine bilgi sahibisin.
+
+Kullanıcının rüyası:
+"${dreamText}"
+
+Bu rüyayı detaylıca analiz et. Rüyadaki sembolleri, karakterleri, mekanları ve duyguları yorumla.
+Türk rüya tabiri geleneğinden ve evrensel psikolojik anlamlardan yararlan.
+
+Aşağıdaki JSON formatında yanıt ver:
+
+{
+  "general": "Rüyanın genel anlamı ve mesajı (80-100 kelime)",
+  "symbols": ["sembol1", "sembol2", "sembol3", "sembol4", "sembol5"],
+  "symbolMeanings": [
+    { "symbol": "sembol adı", "meaning": "bu sembolün rüyadaki anlamı (20-30 kelime)" }
+  ],
+  "love": "Rüyanın aşk ve ilişkiler açısından yorumu (50-70 kelime)",
+  "career": "Kariyer ve iş hayatı açısından yorumu (50-70 kelime)",
+  "health": "Sağlık ve ruhsal denge açısından yorumu (40-50 kelime)",
+  "subconscious": "Bilinçaltı mesajı - rüyanın psikolojik yorumu (60-80 kelime)",
+  "advice": "Rüyanın verdiği mesaj ve tavsiye (40-50 kelime)",
+  "isGoodDream": true,
+  "keywords": ["kelime1", "kelime2", "kelime3", "kelime4", "kelime5"],
+  "luckyNumbers": [sayı1, sayı2, sayı3],
+  "luckyColors": ["renk1", "renk2"],
+  "sentiment": "positive",
+  "fullReading": "Tüm yorumun akıcı ve bütünleşik hali (300+ kelime)"
+}
+
+isGoodDream: rüya hayırlı ise true, hayırsız ise false olmalı.
+Sentiment: very_positive, positive, neutral, negative, very_negative olabilir.`;
+
 const getPromptByType = (type, options = {}) => {
-  const { userNote, cardCount, zodiacSign, period } = options;
+  const { userNote, cardCount, zodiacSign, period, dreamText } = options;
   switch (type) {
     case 'coffee': return COFFEE_FORTUNE_PROMPT(userNote);
     case 'palm': return PALM_FORTUNE_PROMPT(userNote);
     case 'tarot': return TAROT_FORTUNE_PROMPT(cardCount, userNote);
     case 'horoscope': return HOROSCOPE_PROMPT(zodiacSign, period, userNote);
+    case 'dream': return DREAM_PROMPT(dreamText);
     default: throw new Error(`Geçersiz fal tipi: ${type}`);
   }
 };

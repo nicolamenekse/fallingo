@@ -37,6 +37,8 @@ export const COLORS = {
   tarotLight: '#8B5CF6',
   horoscope: '#1E3A5F',
   horoscopeLight: '#60A5FA',
+  dream: '#4A0080',
+  dreamLight: '#9333EA',
 
   // Gradients (used as array pairs)
   gradientPrimary: ['#7C3AED', '#EC4899'] as const,
@@ -46,6 +48,7 @@ export const COLORS = {
   gradientPalm: ['#065F46', '#10B981'] as const,
   gradientTarot: ['#4C1D95', '#7C3AED'] as const,
   gradientHoroscope: ['#1E3A5F', '#2563EB'] as const,
+  gradientDream: ['#4A0080', '#9333EA'] as const,
 };
 
 export const FONTS = {
@@ -141,6 +144,15 @@ export const FORTUNE_TYPES = [
     gradient: COLORS.gradientHoroscope,
     requiresImage: false,
     isPremium: true,
+  },
+  {
+    id: 'dream',
+    title: 'Rüya Tabiri',
+    subtitle: 'Bilinçaltının sırlarını keşfet',
+    emoji: '🌙',
+    gradient: COLORS.gradientDream,
+    requiresImage: false,
+    isPremium: false,
   },
 ] as const;
 

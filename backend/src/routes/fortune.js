@@ -5,6 +5,7 @@ const {
   createPalmReading,
   createTarotReading,
   createHoroscopeReading,
+  createDreamReading,
   getReadingById,
   rateReading,
   toggleFavorite,
@@ -50,6 +51,13 @@ router.post(
   checkDailyLimit,
   requirePremium,
   createHoroscopeReading
+);
+
+router.post(
+  '/dream',
+  fortuneLimiter,
+  checkDailyLimit,
+  createDreamReading
 );
 
 router.get('/:id', getReadingById);

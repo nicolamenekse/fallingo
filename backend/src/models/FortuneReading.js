@@ -11,7 +11,7 @@ const fortuneReadingSchema = new mongoose.Schema(
     type: {
       type: String,
       required: true,
-      enum: ['coffee', 'palm', 'tarot', 'horoscope'],
+      enum: ['coffee', 'palm', 'tarot', 'horoscope', 'dream'],
       index: true,
     },
     title: {
@@ -69,6 +69,13 @@ const fortuneReadingSchema = new mongoose.Schema(
         fate: { type: String, default: null },
       },
     },
+    dreamData: {
+      dreamText: { type: String, default: null },
+      symbols: { type: [String], default: [] },
+      symbolMeanings: [{ symbol: String, meaning: String }],
+      subconscious: { type: String, default: null },
+      isGoodDream: { type: Boolean, default: true },
+    },
     userRating: {
       type: Number,
       min: 1,
@@ -117,6 +124,7 @@ fortuneReadingSchema.statics.getTypeLabel = function (type) {
     palm: 'El Falı',
     tarot: 'Tarot Falı',
     horoscope: 'Yıldız Falı',
+    dream: 'Rüya Tabiri',
   };
   return labels[type] || type;
 };

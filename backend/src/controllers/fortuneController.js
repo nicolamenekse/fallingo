@@ -226,6 +226,75 @@ exports.createHoroscopeReading = async (req, res, next) => {
   }
 };
 
+exports.createDreamReading = async (req, res, next) => {
+  try {
+    const { dreamText } = req.body;
+
+    if (!dreamText || dreamText.trim().length < 10) {
+      return res.status(400).json({
+        success: false,
+        message: 'Lütfen rüyanızı en az 10 karakter ile açıklayın.',
+      });
+    }
+
+    if (dreamText.trim().length > 2000) {
+      return res.status(400).json({
+        success: false,
+        message: 'Rüya açıklaması 2000 karakterden uzun olamaz.',
+      });
+    }
+
+    const userPrompt = getPromptByType('dream', { dreamText: dreamText.trim() });
+    const { data: aiData, tokensUsed, processingTime } = await generateTextWithAI({
+      systemPrompt: SYSTEM_PROMPT,
+      userPrompt,
+    });
+
+    const { reading } = buildReadingFromAIResponse('dream', aiData);
+
+    const symbols = Array.isArray(aiData.symbols) ? aiData.symbols.slice(0, 10) : [];
+    const symbolMeanings = Array.isArray(aiData.symbolMeanings) ? aiData.symbolMeanings.slice(0, 10) : [];
+
+    const fortuneReading = await FortuneReading.create({
+      user: req.user._id,
+      type: 'dream',
+      title: 'Rüya Tabiri',
+      userNote: dreamText.trim(),
+      reading: {
+        ...reading,
+        sections: {
+          ...reading.sections,
+          general: aiData.general || null,
+          love: aiData.love || null,
+          career: aiData.career || null,
+          health: aiData.health || null,
+          finance: null,
+          advice: aiData.advice || null,
+        },
+      },
+      dreamData: {
+        dreamText: dreamText.trim(),
+        symbols,
+        symbolMeanings,
+        subconscious: aiData.subconscious || null,
+        isGoodDream: aiData.isGoodDream !== false,
+      },
+      tokensUsed,
+      processingTime,
+    });
+
+    await req.user.incrementReadingCount();
+
+    res.status(201).json({
+      success: true,
+      message: 'Rüyanız yorumlandı!',
+      reading: fortuneReading,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.getReadingById = async (req, res, next) => {
   try {
     const reading = await FortuneReading.findOne({

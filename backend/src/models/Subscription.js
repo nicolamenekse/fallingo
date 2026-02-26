@@ -68,7 +68,7 @@ const subscriptionSchema = new mongoose.Schema(
 const PLAN_FEATURES = {
   free: {
     dailyLimit: 3,
-    types: ['coffee'],
+    types: ['coffee', 'dream'],
     canShare: false,
     canFavorite: true,
     historyDays: 7,
@@ -76,7 +76,7 @@ const PLAN_FEATURES = {
   },
   premium: {
     dailyLimit: 20,
-    types: ['coffee', 'palm', 'tarot', 'horoscope'],
+    types: ['coffee', 'palm', 'tarot', 'horoscope', 'dream'],
     canShare: true,
     canFavorite: true,
     historyDays: 90,
@@ -84,7 +84,7 @@ const PLAN_FEATURES = {
   },
   vip: {
     dailyLimit: 999,
-    types: ['coffee', 'palm', 'tarot', 'horoscope'],
+    types: ['coffee', 'palm', 'tarot', 'horoscope', 'dream'],
     canShare: true,
     canFavorite: true,
     historyDays: 365,

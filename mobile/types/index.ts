@@ -1,4 +1,4 @@
-export type FortuneType = 'coffee' | 'palm' | 'tarot' | 'horoscope';
+export type FortuneType = 'coffee' | 'palm' | 'tarot' | 'horoscope' | 'dream';
 export type SubscriptionPlan = 'free' | 'premium' | 'vip';
 
 export interface User {
@@ -62,6 +62,13 @@ export interface FortuneReading {
     lines: { heart: string | null; head: string | null; life: string | null; fate: string | null };
   };
   horoscopeData?: { zodiacSign: string; period: string };
+  dreamData?: {
+    dreamText: string;
+    symbols: string[];
+    symbolMeanings: { symbol: string; meaning: string }[];
+    subconscious: string | null;
+    isGoodDream: boolean;
+  };
   userRating: number | null;
   isFavorite: boolean;
   isShared: boolean;

@@ -22,7 +22,7 @@ function FortuneCard({ fortune, index }: { fortune: typeof FORTUNE_TYPES[number]
       router.push('/fortune/premium');
       return;
     }
-    router.push(`/fortune/${fortune.id}` as any);
+    router.push(`/fortune/${fortune.id === 'dream' ? 'dream' : fortune.id}` as any);
   };
 
   return (

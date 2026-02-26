@@ -18,6 +18,7 @@ const TYPE_LABELS: Record<string, { emoji: string; label: string; color: string 
   palm: { emoji: '✋', label: 'El', color: '#10B981' },
   tarot: { emoji: '🃏', label: 'Tarot', color: '#8B5CF6' },
   horoscope: { emoji: '⭐', label: 'Yıldız', color: '#60A5FA' },
+  dream: { emoji: '🌙', label: 'Rüya', color: '#9333EA' },
 };
 
 const FILTER_OPTIONS = [
@@ -26,6 +27,7 @@ const FILTER_OPTIONS = [
   { id: 'palm', label: '✋ El' },
   { id: 'tarot', label: '🃏 Tarot' },
   { id: 'horoscope', label: '⭐ Yıldız' },
+  { id: 'dream', label: '🌙 Rüya' },
   { id: 'favorites', label: '❤️ Favori' },
 ];
 
@@ -130,7 +132,10 @@ export default function HistoryScreen() {
             renderItem={({ item }) => (
               <ReadingCard
                 item={item}
-                onPress={() => router.push({ pathname: '/fortune/result', params: { id: item._id } })}
+                onPress={() => router.push({
+                  pathname: item.type === 'dream' ? '/fortune/dream-result' : '/fortune/result',
+                  params: { id: item._id },
+                })}
               />
             )}
             contentContainerStyle={styles.list}

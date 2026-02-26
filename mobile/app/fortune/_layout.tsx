@@ -9,6 +9,8 @@ export default function FortuneLayout() {
       <Stack.Screen name="horoscope" />
       <Stack.Screen name="result" />
       <Stack.Screen name="premium" />
+      <Stack.Screen name="dream" />
+      <Stack.Screen name="dream-result" />
     </Stack>
   );
 }
